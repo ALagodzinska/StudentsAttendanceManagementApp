@@ -15,7 +15,7 @@ namespace AttendanceApp.UI
         {
             CreateHostBuilder(args).Build().Run();
         }
-        //test from Natalija
+        //new test new test
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
