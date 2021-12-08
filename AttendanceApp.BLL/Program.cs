@@ -7,6 +7,7 @@ namespace AttendanceApp.BLL
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            //hello 
         }
     }
 }
