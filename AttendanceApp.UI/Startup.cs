@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace AttendanceApp.UI
 {
     public class Startup
-    {
+    {        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -52,6 +52,8 @@ namespace AttendanceApp.UI
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            BLL.DBOperations.CreateDbIfNotExsists();
         }
     }
 }
