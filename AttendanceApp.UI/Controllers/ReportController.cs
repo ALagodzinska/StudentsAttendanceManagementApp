@@ -61,6 +61,7 @@ namespace AttendanceApp.UI.Controllers
             var reportToEdit = appOperator.GetAttendanceReportById((int)id);
             var reportModel = new AttendanceReportModel()
             {
+                ReportID = reportToEdit.ReportID,
                 Teachers = reportToEdit.Teacher,
                 Date = reportToEdit.Date
             };
@@ -81,6 +82,29 @@ namespace AttendanceApp.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Delete([FromRoute] int? id)
+        {
+            var reportToEdit = appOperator.GetAttendanceReportById((int)id);
+            var reportModel = new AttendanceReportModel()
+            {
+                ReportID = reportToEdit.ReportID,
+                Teachers = reportToEdit.Teacher,
+                Date = reportToEdit.Date
+            };
+            PassTeachersToView();
+            return View(reportModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete([FromForm] AttendanceReportModel report, [FromRoute] int? id)
+        {
+            DBOperations.DeleteAttendanceReport((int)id);
+
+            return RedirectToAction("Index");
+        }
+
         public void PassTeachersToView()
         {
             var teacherModelList = new List<TeacherModel>();

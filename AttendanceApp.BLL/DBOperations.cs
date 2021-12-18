@@ -112,6 +112,15 @@ namespace AttendanceApp.BLL
                 }
             }
         }
+        public static void DeleteAttendanceReport(int id)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var selectReport = Context.AttendanceReports.FirstOrDefault(x => x.ReportID == id);
+                Context.AttendanceReports.Remove(selectReport);
+                Context.SaveChanges();
+            }
+        }
 
     }
 }
