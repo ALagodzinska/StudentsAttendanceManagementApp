@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AttendanceApp.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace AttendanceApp.BLL
 {
     interface IAttendanceAppOperations
     {
-        public User GetUser (User user);
+        public User GetUserByCreds (User user);
+        public Teacher GetTeacherById(int id);
     }
 }

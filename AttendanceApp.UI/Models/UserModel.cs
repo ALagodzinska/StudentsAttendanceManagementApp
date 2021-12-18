@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AttendanceApp.BLL
+namespace AttendanceApp.UI
 {
-    public class User
+    public class UserModel
     {
         [Key]
         public int Id { get; set; }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AttendanceApp.UI.StudentAttendancyModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReportID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPresent)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPresent)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Create", "Create", new { id = ViewData["ReportID"] })
+<br />
+<div>
+    @Html.ActionLink("Back To List", "Index", "Report")
+</div>
