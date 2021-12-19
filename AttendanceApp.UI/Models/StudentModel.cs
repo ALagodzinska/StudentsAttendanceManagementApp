@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace AttendanceApp.UI
 {
+    public enum StudentGroup
+    {
+        A01,
+        A02,
+        B01,
+        B02,
+        C01
+    }
     public class StudentModel
     {
         [Key]
@@ -16,6 +24,6 @@ namespace AttendanceApp.UI
         public string Surname { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }        
-        public string StudentGroupID { get; set; }
+        public StudentGroup StudentGroupID { get; set; }
     }
 }

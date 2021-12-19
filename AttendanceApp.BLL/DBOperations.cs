@@ -116,6 +116,14 @@ namespace AttendanceApp.BLL
                 Context.SaveChanges();
             }
         }
+        public static void CreateStudent(Student student)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                Context.Students.Add(student);
+                Context.SaveChanges();
+            }
+        }
         public static void UpdateAttendanceReport(AttendanceReport report, int id)
         {
             using (var Context = new AttendanceAppDbContext())
@@ -149,6 +157,39 @@ namespace AttendanceApp.BLL
                 }
             }
         }
+        public static void UpdateTeacher(Teacher teacher)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var updateTeacher = Context.Teachers.FirstOrDefault(x => x.Id == teacher.Id);
+                if (updateTeacher != null)
+                {
+                    updateTeacher.Name = teacher.Name;
+                    updateTeacher.Surname = teacher.Surname;
+                    updateTeacher.Course = teacher.Course;
+                    updateTeacher.Email = teacher.Email;
+                    Context.Update(updateTeacher);
+                    Context.SaveChanges();
+                }
+            }
+        }
+        public static void UpdateStudent(Student student)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var updateStudent = Context.Students.FirstOrDefault(x => x.Id == student.Id);
+                if (updateStudent != null)
+                {
+                    updateStudent.Name = student.Name;
+                    updateStudent.Surname = student.Surname;
+                    updateStudent.Age = student.Age;
+                    updateStudent.StudentGroupID = student.StudentGroupID;
+                    updateStudent.Email = student.Email;
+                    Context.Update(updateStudent);
+                    Context.SaveChanges();
+                }
+            }
+        }
         public static void DeleteAttendanceReport(int id)
         {
             using (var Context = new AttendanceAppDbContext())
@@ -175,6 +216,26 @@ namespace AttendanceApp.BLL
                 var selectReport = Context.StudentAttendancy.FirstOrDefault(x => x.Id == id);
                 Context.StudentAttendancy.Remove(selectReport);
                 
+                Context.SaveChanges();
+            }
+        }
+        public static void DeleteTeacher(int id)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var selectTeacher = Context.Teachers.FirstOrDefault(x => x.Id == id);
+                Context.Teachers.Remove(selectTeacher);
+
+                Context.SaveChanges();
+            }
+        }
+        public static void DeleteStudent(int id)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var selectStudent = Context.Students.FirstOrDefault(x => x.Id == id);
+                Context.Students.Remove(selectStudent);
+
                 Context.SaveChanges();
             }
         }

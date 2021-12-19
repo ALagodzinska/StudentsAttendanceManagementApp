@@ -52,5 +52,63 @@ namespace AttendanceApp.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Update([FromRoute] int? id)
+        {
+            var teacherToEdit = appOperator.GetTeacherById((int)id);
+            var teacherModel = new TeacherModel()
+            {
+                Id = teacherToEdit.Id,
+                Name = teacherToEdit.Name,
+                Surname = teacherToEdit.Surname,
+                Course = (Subject)teacherToEdit.Course,
+                Email = teacherToEdit.Email
+            };
+            return View(teacherModel);
+        }
+
+        [HttpPost]
+        public IActionResult Update([FromForm] TeacherModel teacher)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(teacher);
+            }
+            var updatedTeacher = new Teacher()
+            {
+                Id = teacher.Id,
+                Name = teacher.Name,
+                Surname = teacher.Surname,
+                Course = (Entity.Subject)teacher.Course,
+                Email = teacher.Email
+            };
+            DBOperations.UpdateTeacher(updatedTeacher);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete([FromRoute] int? id)
+        {
+            var teacherToEdit = appOperator.GetTeacherById((int)id);
+            var teacherModel = new TeacherModel()
+            {
+                Id = teacherToEdit.Id,
+                Name = teacherToEdit.Name,
+                Surname = teacherToEdit.Surname,
+                Course = (Subject)teacherToEdit.Course,
+                Email = teacherToEdit.Email
+            };
+            return View(teacherModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete([FromForm] TeacherModel teacher)
+        {
+            DBOperations.DeleteTeacher(teacher.Id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -133,7 +133,7 @@ namespace AttendanceApp.UI.Controllers
                     Name = item.Name,
                     Surname = item.Surname,
                     Age = item.Age,
-                    StudentGroupID = item.StudentGroupID,
+                    StudentGroupID = (StudentGroup)item.StudentGroupID,
                     Email = item.Email
                 };
                 studentModelList.Add(student);

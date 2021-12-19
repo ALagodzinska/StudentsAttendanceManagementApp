@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace AttendanceApp.Entity
 {
+    public enum StudentGroup
+    {
+        A01,
+        A02,
+        B01,
+        B02,
+        C01
+    }
     public class Student
     {
         [Key]
@@ -18,6 +26,6 @@ namespace AttendanceApp.Entity
         public string Surname { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }        
-        public string StudentGroupID { get; set; }
+        public StudentGroup StudentGroupID { get; set; }
     }
 }
