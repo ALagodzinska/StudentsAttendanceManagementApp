@@ -95,3 +95,12 @@ body {
     background-color: #04AA6D;
     color: white;
 }
+#homePagePicture{
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+}
+#loginIcon {
+    width: 24px;
+    height: 24px;
+}

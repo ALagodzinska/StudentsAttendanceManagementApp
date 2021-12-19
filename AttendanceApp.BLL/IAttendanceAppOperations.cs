@@ -11,5 +11,8 @@ namespace AttendanceApp.BLL
     {
         public User GetUserByCreds (User user);
         public Teacher GetTeacherById(int id);
+        public Student GetStudentById(int id);
+        public AttendanceReport GetAttendanceReportById(int id);
+        public List<Student> GetAvailableStudentList(int reportId);
     }
 }

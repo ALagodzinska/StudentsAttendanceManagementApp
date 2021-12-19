@@ -1,10 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to Students Attendance Management System</h1>
-    <p>This project manages attendance of students.</p>
-    <p>To create a new report press:</p>
-    @Html.ActionLink("Add new report", "Index", "Report")
-</div>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1>Students Attendance Management System</h1>
+        <p class="lead text-muted mb-0"><strong>Attendance Management System</strong> made for tracking student attendance.</p>      
+        <p class="lead text-muted mb-0">Application that simplifies the collection and analysis of attendance data.</p>
+        <p class="lead text-muted">All information that is used to create a report can be edited.</p>
+        <p>
+            <a href="Report/Index" class="btn btn-outline-dark btn-lg ">Create a new report</a>
+        </p>
+    </div>
+    <div>
+        <img id="homePagePicture" src="~/Images/homePicture2.jpg" alt="HomePage" />
+    </div>
+</section>
