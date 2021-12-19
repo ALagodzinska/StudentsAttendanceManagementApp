@@ -56,15 +56,26 @@ namespace AttendanceApp.BLL
                 return reports;
             }            
         }
-        public static List<StudentAttendancy> GetStudentAttendancy(int id)
+        public static List<StudentAttendancy> GetStudentAttendancy(int reportId)
         {
             using (var Context = new AttendanceAppDbContext())
             {
                 var students = Context.StudentAttendancy
                     .Include(x => x.Report)
                     .Include(x => x.Student)
-                    .Where(x => x.Report.ReportID == id).ToList();
+                    .Where(x => x.Report.ReportID == reportId).ToList();
                 return students;
+            }
+        }
+        public static StudentAttendancy GetStudentAttendancyById(int id)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var attendancyStudent = Context.StudentAttendancy
+                    .Include(x => x.Report)
+                    .Include(x => x.Student)
+                    .FirstOrDefault(x => x.Id == id);
+                return attendancyStudent;
             }
         }
         public static void CreateStudentAttendancy(StudentAttendancy studentAttendancy, int id)
@@ -97,6 +108,14 @@ namespace AttendanceApp.BLL
                 Context.SaveChanges();
             }
         }
+        public static void CreateTeacher(Teacher teacher)
+        {
+            using(var Context = new AttendanceAppDbContext())
+            {
+                Context.Teachers.Add(teacher);
+                Context.SaveChanges();
+            }
+        }
         public static void UpdateAttendanceReport(AttendanceReport report, int id)
         {
             using (var Context = new AttendanceAppDbContext())
@@ -112,15 +131,52 @@ namespace AttendanceApp.BLL
                 }
             }
         }
+        public static void UpdateStudentAttendancy(StudentAttendancy studentAttendancy)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var updateStudentAttendancy = Context.StudentAttendancy.FirstOrDefault(x => x.Id == studentAttendancy.Id);
+                var studentRecord = Context.Students.FirstOrDefault(x => x.Id == studentAttendancy.Student.Id);
+                var reportRecord = Context.AttendanceReports.FirstOrDefault(x => x.ReportID == studentAttendancy.Report.ReportID);
+
+                if (updateStudentAttendancy != null)
+                {
+                    updateStudentAttendancy.Report = reportRecord;
+                    updateStudentAttendancy.Student = studentRecord;
+                    updateStudentAttendancy.IsPresent = studentAttendancy.IsPresent;
+                    Context.Update(updateStudentAttendancy);
+                    Context.SaveChanges();
+                }
+            }
+        }
         public static void DeleteAttendanceReport(int id)
         {
             using (var Context = new AttendanceAppDbContext())
             {
                 var selectReport = Context.AttendanceReports.FirstOrDefault(x => x.ReportID == id);
                 Context.AttendanceReports.Remove(selectReport);
+
+                var studentsAttendancyList = Context.StudentAttendancy
+                    .Include(x => x.Report)
+                    .Include(x => x.Student)
+                    .Where(x => x.Report.ReportID == id).ToList();
+                
+                foreach (var student in studentsAttendancyList)
+                {
+                    Context.StudentAttendancy.Remove(student);
+                }
                 Context.SaveChanges();
             }
         }
-
+        public static void DeleteStudentAttendancy(int id)
+        {
+            using (var Context = new AttendanceAppDbContext())
+            {
+                var selectReport = Context.StudentAttendancy.FirstOrDefault(x => x.Id == id);
+                Context.StudentAttendancy.Remove(selectReport);
+                
+                Context.SaveChanges();
+            }
+        }
     }
 }

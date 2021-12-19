@@ -8,6 +8,21 @@ using System.Threading.Tasks;
 
 namespace AttendanceApp.Entity
 {
+    public enum Subject
+    {
+        Art,
+        Biology,
+        Economics,
+        English,
+        French,
+        Geography,
+        History,
+        Literature,
+        Math,
+        Psychology,
+        Science,
+        Sport
+    }
     public class Teacher
     {
         [Key]
@@ -16,7 +31,7 @@ namespace AttendanceApp.Entity
         public string Title { get { return $"{Name} {Surname}"; } }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Subject { get; set; }
-        public string Email { get; set; }
+        public Subject Course { get; set; }
+        public string Email { get; set; }        
     }
 }

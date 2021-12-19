@@ -11,6 +11,7 @@ namespace AttendanceApp.UI.Controllers
 {
     public class StudentAttendancyController : Controller
     {
+        AttendanceAppOperations appOperator = new AttendanceAppOperations();
         public IActionResult Index([FromRoute] int? id)
         {
             ViewData["ReportID"] = (int)id;
@@ -24,6 +25,7 @@ namespace AttendanceApp.UI.Controllers
                 {
                     var student = new StudentAttendancyModel()
                     {
+                        Id = item.Id,
                         ReportID = item.Report.ReportID,
                         Student = item.Student,
                         IsPresent = item.IsPresent
@@ -33,10 +35,11 @@ namespace AttendanceApp.UI.Controllers
             }
             return View(studentsModels);
         }
+
         [HttpGet]
         public IActionResult Create(int? id)
         {
-            PassStudentsToView();
+            PassStudentsToView((int) id);
             var student = new StudentAttendancyModel()
             {
                 ReportID = (int)id,
@@ -46,10 +49,10 @@ namespace AttendanceApp.UI.Controllers
 
         [HttpPost]
         public IActionResult Create([FromForm] StudentAttendancyModel studentAttendance, [FromRoute] int? id)
-        {
-            PassStudentsToView();
+        {            
             if (!ModelState.IsValid)
             {
+                PassStudentsToView((int)id);
                 return View(studentAttendance);
             }
             var newStudentAttendance = new StudentAttendancy()
@@ -61,10 +64,67 @@ namespace AttendanceApp.UI.Controllers
 
             return RedirectToAction("Index", new { id = (int)id });
         }
-        public void PassStudentsToView()
+
+        [HttpGet]
+        public IActionResult Update([FromRoute] int? id)
+        {
+            var attendancyToEdit = DBOperations.GetStudentAttendancyById((int)id);
+            var attendancyModel = new StudentAttendancyModel()
+            {
+                Id = attendancyToEdit.Id,
+                ReportID = attendancyToEdit.Report.ReportID,
+                Student = attendancyToEdit.Student,
+                IsPresent = attendancyToEdit.IsPresent
+            };
+            return View(attendancyModel);
+        }
+
+        [HttpPost]
+        public IActionResult Update([FromForm] StudentAttendancyModel report, [FromRoute] int? id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(report);
+            }
+            var reportById = appOperator.GetAttendanceReportById(report.ReportID);
+            var updatedReport = new StudentAttendancy()
+            {
+                Id = report.Id,
+                Student = report.Student,
+                Report = reportById,
+                IsPresent = report.IsPresent
+            };
+            DBOperations.UpdateStudentAttendancy(updatedReport);
+
+            return RedirectToAction("Index", new { id = report.ReportID});
+        }
+
+        [HttpGet]
+        public IActionResult Delete([FromRoute] int? id)
+        {
+            var reportToDelete = DBOperations.GetStudentAttendancyById((int)id);
+            var attendancyModel = new StudentAttendancyModel()
+            {
+                Id = reportToDelete.Id,
+                Student = reportToDelete.Student,
+                ReportID = reportToDelete.Report.ReportID,
+                IsPresent = reportToDelete.IsPresent
+            };
+            return View(attendancyModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete([FromForm] StudentAttendancyModel attendancyReport, [FromRoute] int? id)
+        {
+            DBOperations.DeleteStudentAttendancy((int)id);
+
+            return RedirectToAction("Index", new { id = attendancyReport.ReportID });
+        }
+
+        public void PassStudentsToView(int reportId)
         {
             var studentModelList = new List<StudentModel>();
-            var studentList = BLL.DBOperations.GetStudents();
+            var studentList = appOperator.GetAvailableStudentList(reportId);
             foreach (var item in studentList)
             {
                 var student = new StudentModel()
@@ -74,8 +134,7 @@ namespace AttendanceApp.UI.Controllers
                     Surname = item.Surname,
                     Age = item.Age,
                     StudentGroupID = item.StudentGroupID,
-                    Email = item.Email,
-                    IsPresent = item.IsPresent
+                    Email = item.Email
                 };
                 studentModelList.Add(student);
             }

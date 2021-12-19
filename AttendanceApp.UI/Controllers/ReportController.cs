@@ -29,10 +29,7 @@ namespace AttendanceApp.UI.Controllers
                 reportsModel.Add(report);
             }            
             return View(reportsModel);
-        }
-               
-
-        
+        }        
 
         [HttpGet]
         public IActionResult Create()
@@ -40,10 +37,15 @@ namespace AttendanceApp.UI.Controllers
             PassTeachersToView();
             return View();
         }
+
         [HttpPost]
         public IActionResult Create([FromForm] AttendanceReportModel report)
         {
-            PassTeachersToView();
+            if (!ModelState.IsValid)
+            {
+                PassTeachersToView();
+                return View(report);
+            }
             var newTeacherReport = new AttendanceReport()
             {
                 Teacher = report.Teachers,
@@ -72,7 +74,11 @@ namespace AttendanceApp.UI.Controllers
         [HttpPost]
         public IActionResult Update([FromForm] AttendanceReportModel report, [FromRoute] int? id)
         {
-            PassTeachersToView();
+            if (!ModelState.IsValid)
+            {
+                PassTeachersToView();
+                return View(report);
+            }
             var updatedReport = new AttendanceReport()
             {
                 Teacher = report.Teachers,
@@ -116,7 +122,7 @@ namespace AttendanceApp.UI.Controllers
                     Id = item.Id,
                     Name = item.Name,
                     Surname = item.Surname,
-                    Subject = item.Subject,
+                    Course = (Subject)item.Course,
                     Email = item.Email
                 };
                 teacherModelList.Add(teacher);

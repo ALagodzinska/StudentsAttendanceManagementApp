@@ -4,10 +4,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Student.Name)
+                @Html.DisplayNameFor(model => model.ReportID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReportID)
+                @Html.DisplayNameFor(model => model.Student.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsPresent)
@@ -18,17 +18,21 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Student.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReportID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPresent)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPresent)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Update", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

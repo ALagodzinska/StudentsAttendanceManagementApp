@@ -14,6 +14,7 @@ namespace AttendanceApp.UI
         public int Id { get; set; }
         [Required]
         public Student Student  { get; set; }
+        [Required]
         public int ReportID { get; set; }
         public bool IsPresent { get; set; }
     }

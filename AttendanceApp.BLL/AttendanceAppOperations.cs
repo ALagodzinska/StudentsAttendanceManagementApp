@@ -1,6 +1,8 @@
 ﻿using AttendanceApp.Entity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AttendanceApp.BLL
 {
@@ -30,14 +32,23 @@ namespace AttendanceApp.BLL
             var reportById = attendanceReportList.FirstOrDefault(x => x.ReportID == id);
             return reportById;
         }
-        //public bool CheckIfContainsStudent(int id)
-        //{
-        //    var studentReport = DBOperations.GetAllFromStudentAttendancy(id);
-        //    if (studentReport.Contains() == true)
-        //    {
-        //        Console.WriteLine("Item exists!");
-        //    }
-        //}       
+        public List<Student> GetAvailableStudentList(int reportId)
+        {
+            var listStudentAttendancy = DBOperations.GetStudentAttendancy(reportId);
+            var listOfStudents = DBOperations.GetStudents();
 
+            List<Student> notSelectedStudents = new List<Student>();
+
+            foreach(var student in listOfStudents)
+            {
+                var studentAttendancy = listStudentAttendancy.FirstOrDefault(x => x.Student.Id == student.Id);
+                if(studentAttendancy == null)
+                {
+                    notSelectedStudents.Add(student);
+                }
+            }
+
+            return notSelectedStudents;
+        }
     }    
 }

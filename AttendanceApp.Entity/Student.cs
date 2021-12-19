@@ -19,6 +19,5 @@ namespace AttendanceApp.Entity
         public int Age { get; set; }
         public string Email { get; set; }        
         public string StudentGroupID { get; set; }
-        public bool IsPresent { get; set; }
     }
 }
