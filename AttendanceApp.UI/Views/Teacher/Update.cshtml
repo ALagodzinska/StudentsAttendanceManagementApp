@@ -10,35 +10,35 @@
                 @Html.HiddenFor(m => m.Id)
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label labelTitle"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
+                <label asp-for="Surname" class="control-label labelTitle"></label>
                 <input asp-for="Surname" class="form-control" />
                 <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Course" class="control-label"></label>
+                <label asp-for="Course" class="control-label labelTitle"></label>
                 <select class="form-control" asp-for="Course" asp-items="Html.GetEnumSelectList<Subject>()">
                     <option selected="selected" value="">Please select Course</option>
                 </select>
                 <span asp-validation-for="Course" class="text-danger">Select a course</span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+                <label asp-for="Email" class="control-label labelTitle"></label>
                 <input asp-for="Email" type="email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-secondary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    @Html.ActionLink("Back To List", "Index")
+    <a href='@Url.Action("Index")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Teachers List</a>
 </div>
 

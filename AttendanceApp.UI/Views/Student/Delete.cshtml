@@ -39,9 +39,10 @@
 
     <form asp-action="Delete">
         @Html.HiddenFor(m => m.Id)
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="submit" value="Delete" class="btn btn-outline-danger" />
     </form>
+    <br />
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        <a href='@Url.Action("Index")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Student List</a>
     </div>
 </div>

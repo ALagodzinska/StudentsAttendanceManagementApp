@@ -1,12 +1,13 @@
 ﻿@model AttendanceApp.UI.AttendanceReportModel
 
-<h4>AttendanceReportModel</h4>
+<h4>Add New Attendance Report</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Teachers" class="control-label labelTitle"></label>
                 @Html.DropDownListFor(
                 report => report.Teachers.Id,
                 ViewData["Teachers"] as SelectList,
@@ -16,18 +17,17 @@
                 @Html.ValidationMessageFor(m => m.Teachers.Id, "Please select teacher.", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
+                <label asp-for="Date" class="control-label labelTitle"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group">                
+                <input type="submit" value="Create New Report" class="btn btn-secondary" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
-    @Html.ActionLink("Back To List", "Index")
+    <a href='@Url.Action("Index")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Report List</a>
 </div>
 

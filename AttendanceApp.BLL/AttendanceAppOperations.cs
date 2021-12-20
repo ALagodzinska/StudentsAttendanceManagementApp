@@ -50,5 +50,19 @@ namespace AttendanceApp.BLL
 
             return notSelectedStudents;
         }
+        public void MarkAllStudentPresent(int reportId)
+        {
+            var allStudents = GetAvailableStudentList(reportId);
+            foreach(var student in allStudents)
+            {
+                var studAttendance = new StudentAttendancy
+                {
+                    Report = GetAttendanceReportById(reportId),
+                    Student = student,
+                    IsPresent = true
+                };
+                DBOperations.CreateStudentAttendancy(studAttendance, reportId);
+            }
+        }
     }    
 }

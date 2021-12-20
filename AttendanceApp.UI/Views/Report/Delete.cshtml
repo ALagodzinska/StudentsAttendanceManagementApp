@@ -24,9 +24,12 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-outline-danger" />
     </form>
+    <br />
+    <div>
+        <a href='@Url.Action("Index")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Report List</a>
+    </div>
 </div>

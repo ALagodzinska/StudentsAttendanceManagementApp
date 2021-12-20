@@ -9,12 +9,12 @@
             @Html.DisplayNameFor(model => model.ReportID)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ReportID)            
+            @Html.DisplayFor(model => model.ReportID)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Student.Name)
         </dt>
-        <dd class="col-sm-10">            
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Student.Title)
         </dd>
         <dt class="col-sm-2">
@@ -24,12 +24,13 @@
             @Html.DisplayFor(model => model.IsPresent)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         @Html.HiddenFor(m => m.ReportID)
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="submit" value="Delete" class="btn btn-outline-danger" />
     </form>
+    <br />
     <div>
-        @Html.ActionLink("Back to List", "Index", new { id = Model.ReportID })
+        <a href='@Url.Action("Index", new { id = Model.ReportID})' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Student Attendance List</a>
     </div>
 </div>

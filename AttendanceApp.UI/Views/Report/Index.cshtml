@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<AttendanceApp.UI.AttendanceReportModel>
 
 <p>
-    @Html.ActionLink("Create", "Create")
+    <a href='@Url.Action("Create", "Report")' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Create New Report</a>
 </p>
-<table class="table">
+<table id="indexList" class="table">
     <thead>
         <tr>
             <th>
@@ -18,7 +18,9 @@
             <th>
                 Add Students
             </th>
-            <th></th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -37,10 +39,13 @@
                 @Html.ActionLink("Students", "Index", "StudentAttendancy", new { id = item.ReportID })
             </td>
             <td>
-                @Html.ActionLink("Edit", "Update", new { id = item.ReportID })
-                @Html.ActionLink("Delete", "Delete", new { id = item.ReportID })
+                <a href='@Url.Action("Update", new { id = item.ReportID })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/edit.png" /> Edit</a>
+                <a href='@Url.Action("Delete", new { id = item.ReportID })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/delete.png" /> Delete</a>                
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a href='@Url.Action("Index", "Home")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Home Page</a>
+</div>

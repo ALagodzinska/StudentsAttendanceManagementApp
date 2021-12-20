@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<AttendanceApp.UI.StudentModel>
 
 <p>
-    @Html.ActionLink("Add new student", "Create")
+    <a href='@Url.Action("Create", "Student")' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Create New Student</a>
 </p>
-<table class="table">
+<table id="indexList" class="table">
     <thead>
         <tr>
             <th>
@@ -21,7 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.StudentGroupID)
             </th>
-            <th></th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -43,10 +45,13 @@
                 @Html.DisplayFor(modelItem => item.StudentGroupID)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Update", new { id = item.Id }) 
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                <a href='@Url.Action("Update", new { id = item.Id })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/edit.png" /> Edit</a>
+                <a href='@Url.Action("Delete", new { id = item.Id })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/delete.png" /> Delete</a>                
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a href='@Url.Action("Index", "Home")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Home Page</a>
+</div>

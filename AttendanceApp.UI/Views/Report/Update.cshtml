@@ -7,6 +7,7 @@
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Teachers" class="control-label labelTitle"></label>
                 @Html.DropDownListFor(
                 report => report.Teachers.Id,
                 ViewData["Teachers"] as SelectList,
@@ -16,18 +17,18 @@
                 @Html.ValidationMessageFor(m => m.Teachers.Id, "Please select teacher.", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
+                <label asp-for="Date" class="control-label labelTitle"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-secondary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href='@Url.Action("Index")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Report List</a>
 </div>
 

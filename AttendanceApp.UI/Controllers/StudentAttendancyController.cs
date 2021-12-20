@@ -121,6 +121,12 @@ namespace AttendanceApp.UI.Controllers
             return RedirectToAction("Index", new { id = attendancyReport.ReportID });
         }
 
+        public IActionResult AllPresent([FromRoute] int? id)
+        {
+            appOperator.MarkAllStudentPresent((int)id);
+            return RedirectToAction("Index", new { id = id });
+        }
+
         public void PassStudentsToView(int reportId)
         {
             var studentModelList = new List<StudentModel>();
