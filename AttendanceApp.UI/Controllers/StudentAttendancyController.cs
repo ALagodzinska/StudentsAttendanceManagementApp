@@ -120,11 +120,26 @@ namespace AttendanceApp.UI.Controllers
 
             return RedirectToAction("Index", new { id = attendancyReport.ReportID });
         }
-
+        public IActionResult AddMissing([FromRoute] int? id)
+        {
+            appOperator.AddMissingStudents((int)id);
+            return RedirectToAction("Index", new { id = id });
+        }
         public IActionResult AllPresent([FromRoute] int? id)
         {
-            appOperator.MarkAllStudentPresent((int)id);
+            appOperator.MarkAllStudentsPresent((int)id);
             return RedirectToAction("Index", new { id = id });
+        }
+        public IActionResult AllAbsent([FromRoute] int? id)
+        {
+            appOperator.MarkAllStudentsAbsent((int)id);
+            return RedirectToAction("Index", new { id = id });
+        }
+        public IActionResult ChangeIsPresent([FromRoute] int? id)
+        {
+            var studentAttendancy = DBOperations.GetStudentAttendancyById((int)id);
+            appOperator.ChangeStudentPresent((int)id);
+            return RedirectToAction("Index", new { id = studentAttendancy.Report.ReportID});
         }
 
         public void PassStudentsToView(int reportId)

@@ -3,48 +3,59 @@
 <p>
     <a href='@Url.Action("Create", new { id = ViewData["ReportID"] })' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Add Student</a>
 
-    <a href='@Url.Action("AllPresent", new { id = ViewData["ReportID"] })' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Mark All Student Present</a>
-</p>  
-<br />
+    <a href='@Url.Action("AddMissing", new { id = ViewData["ReportID"] })' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Add All Students</a>
 
-    <table id="indexList" class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ReportID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Student.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsPresent)
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReportID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Student.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsPresent)
-                    </td>
-                    <td>
-                        <a href='@Url.Action("Update", new { id = item.Id })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/edit.png" /> Edit</a>
-                        <a href='@Url.Action("Delete", new { id = item.Id })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/delete.png" /> Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div>
-        <a href='@Url.Action("Index", "Report")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Report List</a>
-    </div>
+    <a href='@Url.Action("AllPresent", new { id = ViewData["ReportID"] })' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Mark All Students Present</a>
+
+    <a href='@Url.Action("AllAbsent", new { id = ViewData["ReportID"] })' class="btn btn-outline-secondary"><img class="buttonIcon" src="~/Images/add.png" /> Mark All Students Absent</a>
+</p>
+<br />
+<table id="indexList" class="table">
+    <thead>
+        <tr>
+            <th>
+                Student Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPresent)
+            </th>
+            <th>
+                Change presence
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.HiddenFor(modelItem => item.ReportID)
+                @Html.DisplayFor(modelItem => item.Student.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPresent)
+            </td>
+            <td>
+                @if (item.IsPresent == true)
+                {
+                    <a href='@Url.Action("ChangeIsPresent", new { id = item.Id })' class="btn btn-light btn-sm"> Not Present</a>
+                }
+                else
+                {
+                    <a href='@Url.Action("ChangeIsPresent", new { id = item.Id })' class="btn btn-light btn-sm"> Is Present</a>
+                }
+            </td>
+            <td>
+                <a href='@Url.Action("Update", new { id = item.Id })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/edit.png" /> Edit</a>
+                <a href='@Url.Action("Delete", new { id = item.Id })' class="btn btn-light btn-sm"><img class="buttonIcon" src="~/Images/delete.png" /> Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a href='@Url.Action("Index", "Report")' class="btn btn-light"><img class="returnButtonIcon" src="~/Images/return.png" /> Back To Report List</a>
+</div>

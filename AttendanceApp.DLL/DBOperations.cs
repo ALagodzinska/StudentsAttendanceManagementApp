@@ -47,7 +47,7 @@ namespace AttendanceApp.BLL
             }
 
             return teachers;
-        }
+        }        
         public static List<AttendanceReport> GetAttendanceReport()
         {
             using (var Context = new AttendanceAppDbContext())

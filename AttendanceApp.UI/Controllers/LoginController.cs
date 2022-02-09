@@ -10,17 +10,22 @@ namespace AttendanceApp.UI.Controllers
 {
     public class LoginController : Controller
     {
+        AttendanceAppOperations attendanceOperator = new AttendanceAppOperations();
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult ProcessLogin(User user)
+        public IActionResult ProcessLogin(UserModel user)
         {
-            AttendanceAppOperations attendanceOperator = new AttendanceAppOperations();
-            User databaseUser = attendanceOperator.GetUserByCreds(user);
+            var enteredUser = new User()
+            {
+                UserName = user.UserName,
+                Password = user.Password
+            };
+            User databaseUser = attendanceOperator.GetUserByCreds(enteredUser);
             if (databaseUser != null)
             {
-                return View("LoginSuccess", databaseUser);
+                return View("LoginSuccess", user);
             }
             else
             {

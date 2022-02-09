@@ -50,7 +50,7 @@ namespace AttendanceApp.BLL
 
             return notSelectedStudents;
         }
-        public void MarkAllStudentPresent(int reportId)
+        public void AddMissingStudents(int reportId)
         {
             var allStudents = GetAvailableStudentList(reportId);
             foreach(var student in allStudents)
@@ -59,10 +59,53 @@ namespace AttendanceApp.BLL
                 {
                     Report = GetAttendanceReportById(reportId),
                     Student = student,
-                    IsPresent = true
+                    IsPresent = false
                 };
                 DBOperations.CreateStudentAttendancy(studAttendance, reportId);
             }
+        }
+        public void MarkAllStudentsPresent(int reportId)
+        {
+            var allStudents = DBOperations.GetStudentAttendancy(reportId);
+            foreach (var studentAttendance in allStudents)
+            {
+                var studentAttendancy = new StudentAttendancy
+                {
+                    Id = studentAttendance.Id,
+                    Report = studentAttendance.Report,
+                    Student = studentAttendance.Student,
+                    IsPresent = true
+                };
+                DBOperations.UpdateStudentAttendancy(studentAttendancy);
+            }
+        }
+        public void MarkAllStudentsAbsent(int reportId)
+        {
+            var allStudents = DBOperations.GetStudentAttendancy(reportId);
+            foreach (var studentAttendance in allStudents)
+            {
+                var studentAttendancy = new StudentAttendancy
+                {
+                    Id = studentAttendance.Id,
+                    Report = studentAttendance.Report,
+                    Student = studentAttendance.Student,
+                    IsPresent = false
+                };
+                DBOperations.UpdateStudentAttendancy(studentAttendancy);
+            }
+        }
+        public void ChangeStudentPresent(int studAtId)
+        {
+            var studentAttendance = DBOperations.GetStudentAttendancyById(studAtId);
+            if(studentAttendance.IsPresent == true)
+            {
+                studentAttendance.IsPresent = false;
+            }
+            else
+            {
+                studentAttendance.IsPresent = true;
+            }
+            DBOperations.UpdateStudentAttendancy(studentAttendance);
         }
     }    
 }
